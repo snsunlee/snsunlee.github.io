@@ -103,12 +103,13 @@
 <meta property="og:site_name" content="My Bolg">
 <meta property="og:description" content="最近在看word2vec的内容，本文主要参考了Xin Rong的 word2vec Parameter Learning Explained 强烈推荐 0. one-hot以及word2vec两种算法：  Skip-Grams (SG)：通过中心词预测上下文 Continuous Bag of Words (CBOW)：通过上下文预测中心单词  加速计算的近似训练方法：  Hierarchical">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="https://snsunlee-github-blog.oss-cn-beijing.aliyuncs.com/Blog_Pic/02-skip-gram-detail.png?Expires=1557739959&OSSAccessKeyId=TMP.AgGdorA6EI0Cyd0Y0ku-v02NJXcQGQoh_ZWNJJ1SeTfOa3xd26Vs86omiqgMADAtAhQtobCq52bqrTaz9iEMXVxhWd5P-AIVAOizb2jLf1PmQYkkesYBMZ7GEoBE&Signature=jhAUbm7IRPAKjR63vzS4iK9natE%3D">
-<meta property="og:updated_time" content="2019-05-13T09:07:49.584Z">
+<meta property="og:image" content="https://snsunlee-github-blog.oss-cn-beijing.aliyuncs.com/Blog_Pic/02-skip-gram-detail.png">
+<meta property="og:image" content="https://snsunlee-github-blog.oss-cn-beijing.aliyuncs.com/Blog_Pic/%E5%B1%82%E5%BA%8Fsoftmax.png">
+<meta property="og:updated_time" content="2019-05-13T11:41:29.923Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="word2vec">
 <meta name="twitter:description" content="最近在看word2vec的内容，本文主要参考了Xin Rong的 word2vec Parameter Learning Explained 强烈推荐 0. one-hot以及word2vec两种算法：  Skip-Grams (SG)：通过中心词预测上下文 Continuous Bag of Words (CBOW)：通过上下文预测中心单词  加速计算的近似训练方法：  Hierarchical">
-<meta name="twitter:image" content="https://snsunlee-github-blog.oss-cn-beijing.aliyuncs.com/Blog_Pic/02-skip-gram-detail.png?Expires=1557739959&OSSAccessKeyId=TMP.AgGdorA6EI0Cyd0Y0ku-v02NJXcQGQoh_ZWNJJ1SeTfOa3xd26Vs86omiqgMADAtAhQtobCq52bqrTaz9iEMXVxhWd5P-AIVAOizb2jLf1PmQYkkesYBMZ7GEoBE&Signature=jhAUbm7IRPAKjR63vzS4iK9natE%3D">
+<meta name="twitter:image" content="https://snsunlee-github-blog.oss-cn-beijing.aliyuncs.com/Blog_Pic/02-skip-gram-detail.png">
 
 
 
@@ -368,7 +369,7 @@
                 
               
 
-              <time title="创建时间：2019-05-13 16:58:46 / 修改时间：17:07:49" itemprop="dateCreated datePublished" datetime="2019-05-13T16:58:46+08:00">2019-05-13</time>
+              <time title="创建时间：2019-05-13 19:34:21 / 修改时间：19:41:29" itemprop="dateCreated datePublished" datetime="2019-05-13T19:34:21+08:00">2019-05-13</time>
             
 
             
@@ -437,13 +438,13 @@
 <li>Negative sampling 负采样</li>
 </ul>
 <p><code>one-hot</code> 所表示的词向量及其稀疏，无法表示每个词之间的相似性。<br>Skip-Gram和CBOW产生的词向量也有些许问题，例如词的多义性并没有很好地解决，这个问题以后再详细整理。</p>
-<h2 id="1-Skip-Gram和CBOW"><a href="#1-Skip-Gram和CBOW" class="headerlink" title="1. Skip-Gram和CBOW"></a>1. Skip-Gram和CBOW</h2><h3 id="1-1-Skip-Gram-跳字模型"><a href="#1-1-Skip-Gram-跳字模型" class="headerlink" title="1.1 Skip-Gram(跳字模型)"></a>1.1 Skip-Gram(跳字模型)</h3><p><img src="https://snsunlee-github-blog.oss-cn-beijing.aliyuncs.com/Blog_Pic/02-skip-gram-detail.png?Expires=1557739959&amp;OSSAccessKeyId=TMP.AgGdorA6EI0Cyd0Y0ku-v02NJXcQGQoh_ZWNJJ1SeTfOa3xd26Vs86omiqgMADAtAhQtobCq52bqrTaz9iEMXVxhWd5P-AIVAOizb2jLf1PmQYkkesYBMZ7GEoBE&amp;Signature=jhAUbm7IRPAKjR63vzS4iK9natE%3D" alt><br>跳字模型是基于某个中心词来生成上下文。例如在文本：<code>the man loves his son</code>中,以<code>loves</code>作为中心词，生成与他距离不超过2个词的背景词 <code>the</code> <code>man</code> <code>his</code> <code>son</code>的条件概率为：</p>
+<h2 id="1-Skip-Gram和CBOW"><a href="#1-Skip-Gram和CBOW" class="headerlink" title="1. Skip-Gram和CBOW"></a>1. Skip-Gram和CBOW</h2><h3 id="1-1-Skip-Gram-跳字模型"><a href="#1-1-Skip-Gram-跳字模型" class="headerlink" title="1.1 Skip-Gram(跳字模型)"></a>1.1 Skip-Gram(跳字模型)</h3><p><img src="https://snsunlee-github-blog.oss-cn-beijing.aliyuncs.com/Blog_Pic/02-skip-gram-detail.png" alt><br>跳字模型是基于某个中心词来生成上下文。例如在文本：<code>the man loves his son</code>中,以<code>loves</code>作为中心词，生成与他距离不超过2个词的背景词 <code>the</code> <code>man</code> <code>his</code> <code>son</code>的条件概率为：</p>
 <script type="math/tex; mode=display">
-P(\textrm{“the”},\textrm{“man”},\textrm{“his”},\textrm{“son”}\mid\textrm{“loves”}).</script><p>假设给定中心词的情况下，背景词的生成是相互独立的，那么上式可以写成</p>
+P(\textrm{``the"},\textrm{``man"},\textrm{``his"},\textrm{``son"}\mid\textrm{``loves"}).</script><p>假设给定中心词的情况下，背景词的生成是相互独立的，那么上式可以写成</p>
 <script type="math/tex; mode=display">
-P(\textrm{“the"}\mid\textrm{“loves”})\cdot P(\textrm{“man”}\mid\textrm{“loves”})\cdot P(\textrm{“his”}\mid\textrm{“loves”})\cdot P(\textrm{“son”}\mid\textrm{“lovee”}).</script><p>在跳字模型中，每个词被表示成两个 $d$ 维向量，用来计算条件概率。假设这个词在词典中索引为 $i$ ，当它为中心词时向量表示为 $\boldsymbol{v}_i\in\mathbb{R}^d$ ，而为背景词时向量表示为 $\boldsymbol{u}_i\in\mathbb{R}^d$ 。设中心词 $w_c$ 在词典中索引为 $c$ ，背景词 $w_o$ 在词典中索引为 $o$ ，给定中心词生成背景词的条件概率可以通过对向量内积做softmax运算而得到：</p>
+P(\textrm{``the"}\mid\textrm{``loves"})\cdot P(\textrm{``man"}\mid\textrm{``loves"})\cdot P(\textrm{``his"}\mid\textrm{``loves"})\cdot P(\textrm{``son"}\mid\textrm{``loves"}).</script><p>在跳字模型中，每个词被表示成两个 $d$ 维向量，用来计算条件概率。假设这个词在词典中索引为 $i$ ，当它为中心词时向量表示为 $\boldsymbol{v}_i\in\mathbb{R}^d$ ，而为背景词时向量表示为 $\boldsymbol{u}_i\in\mathbb{R}^d$ 。设中心词 $w_c$ 在词典中索引为 $c$ ，背景词 $w_o$ 在词典中索引为 $o$ ，给定中心词生成背景词的条件概率可以通过对向量内积做softmax运算而得到：</p>
 <script type="math/tex; mode=display">
-P\left(w_{o} | w_{c}\right)=\frac{\exp \left(\boldsymbol{u}_{o}^{\top} \boldsymbol{v}_{c}\right)}{\sum_{i \in \mathcal{V}} \exp \left(\boldsymbol{u}_{i}^{\top} \boldsymbol{v}_{c}\right)}</script><p>其中词典维度为$\mathcal{V}$，假设给定一个长度为 T 的文本序列，设时间步 $t$ 的词为 $w^t$ 。假设给定中心词的情况下背景词的生成相互独立，当背景窗口大小为 $m$ 时，跳字模型的<code>似然函数</code>(即给定任一中心词生成所有背景词的概率):</p>
+P(w_o \mid w_c) = \frac{\text{exp}(\boldsymbol{u}_o^\top \boldsymbol{v}_c)}{ \sum_{i \in \mathcal{V}} \text{exp}(\boldsymbol{u}_i^\top \boldsymbol{v}_c)},</script><p>其中词典维度为$\mathcal{V}$，假设给定一个长度为 T 的文本序列，设时间步 $t$ 的词为 $w^t$ 。假设给定中心词的情况下背景词的生成相互独立，当背景窗口大小为 $m$ 时，跳字模型的<code>似然函数</code>(即给定任一中心词生成所有背景词的概率):</p>
 <script type="math/tex; mode=display">
 \prod_{t=1}^{T} \prod_{-m \leq j \leq m,\ j \neq 0} P(w^{(t+j)} \mid w^{(t)}),</script><p>最大化此似然函数，等价于最小化<code>negative log likelihood</code>即：</p>
 <script type="math/tex; mode=display">
@@ -467,17 +468,39 @@ J(\theta) = - \frac{1}{T} \sum_{t=1}^T \sum_{-m\le j \le m} \log P(w_{t+j} \mid 
 </ul>
 <h3 id="1-2-CBOW-连续词袋模型"><a href="#1-2-CBOW-连续词袋模型" class="headerlink" title="1.2 CBOW(连续词袋模型)"></a>1.2 CBOW(连续词袋模型)</h3><p>连续词袋模型与跳字模型类似。与跳字模型最大的不同在于，连续词袋模型假设基于某中心词在文本序列前后的背景词来生成该中心词。在同样的文本序列<code>“the”“man”“loves”“his”“son”</code>里，以<code>“loves”</code>作为中心词，且背景窗口大小为2时，连续词袋模型关心的是，给定背景词<code>“the”“man”“his”“son”</code>生成中心词<code>“loves”</code>的条件概率:</p>
 <script type="math/tex; mode=display">
-P(\textrm{“loves”}\mid\textrm{“the”},\textrm{“man”},\textrm{“hi”},\textrm{“son”}).</script><p>因为连续词袋模型的背景词有多个，我们将这些背景词向量取平均，然后使用和跳字模型一样的方法来计算条件概率。设 $\boldsymbol{v_i}\in\mathbb{R}^d$ 和 $\boldsymbol{u_i}\in\mathbb{R}^d $ 分别表示词典中索引为 $i$ 的词作为背景词和中心词的向量（注意符号的含义与跳字模型中的相反）。设中心词 $w_c$ 在词典中索引为 $c$ ，背景词 $w_{o1},…,w_{o2m}$ 在词典中索引为 $o1,…,o2m$ ，那么给定背景词生成中心词的条件概率:</p>
+P(\textrm{``loves"}\mid\textrm{``the"},\textrm{``man"},\textrm{``his"},\textrm{``son"}).</script><p>因为连续词袋模型的背景词有多个，我们将这些背景词向量取平均，然后使用和跳字模型一样的方法来计算条件概率。设 $\boldsymbol{v_i}\in\mathbb{R}^d$ 和 $\boldsymbol{u_i}\in\mathbb{R}^d $ 分别表示词典中索引为 $i$ 的词作为背景词和中心词的向量（注意符号的含义与跳字模型中的相反）。设中心词 $w_c$ 在词典中索引为 $c$ ，背景词 $w_{o1},…,w_{o2m}$ 在词典中索引为 $o1,…,o2m$ ，那么给定背景词生成中心词的条件概率:</p>
 <script type="math/tex; mode=display">
 P(w_c \mid w_{o_1}, \ldots, w_{o_{2m}}) = \frac{\text{exp}\left(\frac{1}{2m}\boldsymbol{u}_c^\top (\boldsymbol{v}_{o_1} + \ldots + \boldsymbol{v}_{o_{2m}}) \right)}{ \sum_{i \in \mathcal{V}} \text{exp}\left(\frac{1}{2m}\boldsymbol{u}_i^\top (\boldsymbol{v}_{o_1} + \ldots + \boldsymbol{v}_{o_{2m}}) \right)}.</script><p>为了让符号更加简单，我们记 $W_o={w_{o1},…,w_{o2m}}$ ，且 $\bar{\boldsymbol{v}}_o = \left(\boldsymbol{v}_{o_1} + \ldots + \boldsymbol{v}_{o_{2m}} \right)/(2m)$ ，那么上式可以简写成</p>
 <script type="math/tex; mode=display">
 \prod_{t=1}^{T}  P(w^{(t)} \mid  w^{(t-m)}, \ldots,  w^{(t-1)},  w^{(t+1)}, \ldots,  w^{(t+m)})</script><p>和跳步模型相似，连续词袋模型的最大似然估计等价于最小化<code>negative log likelihood</code>损失函数：</p>
 <script type="math/tex; mode=display">
-J(\theta) = -\sum_{t=1}^T  \text{log}\, P(w^{(t)} \mid  w^{(t-m)}, \ldots,  w^{(t-1)},  w^{(t+1)}, \ldots,  w^{(t+m)}).</script><p>更进一步：</p>
+J(\theta) = -\sum_{t=1}^T  \text{log}\, P(w^{(t)} \mid  w^{(t-m)}, \ldots,  w^{(t-1)},  w^{(t+1)}, \ldots,  w^{(t+m)})</script><p>更进一步：</p>
 <script type="math/tex; mode=display">
 \log\,P(w_c \mid \mathcal{W}_o) = \boldsymbol{u}_c^\top \bar{\boldsymbol{v}}_o - \log\,\left(\sum_{i \in \mathcal{V}} \exp\left(\boldsymbol{u}_i^\top \bar{\boldsymbol{v}}_o\right)\right).</script><p>最后得到任一背景词向量 $v_{oi}(i=1,2,…,2m)$ 的梯度</p>
 <script type="math/tex; mode=display">
-\frac{\partial \log\, P(w_c \mid \mathcal{W}_o)}{\partial \boldsymbol{v}_{o_i}} = \frac{1}{2m} \left(\boldsymbol{u}_c - \sum_{j \in \mathcal{V}} \frac{\exp(\boldsymbol{u}_j^\top \bar{\boldsymbol{v}}_o)\boldsymbol{u}_j}{ \sum_{i \in \mathcal{V}} \text{exp}(\boldsymbol{u}_i^\top \bar{\boldsymbol{v}}_o)} \right) = \frac{1}{2m}\left(\boldsymbol{u}_c - \sum_{j \in \mathcal{V}} P(w_j \mid \mathcal{W}_o) \boldsymbol{u}_j \right).</script><h2 id="2-加速计算"><a href="#2-加速计算" class="headerlink" title="2. 加速计算"></a>2. 加速计算</h2><h3 id="2-1-Hierarchical-Softmax"><a href="#2-1-Hierarchical-Softmax" class="headerlink" title="2.1 Hierarchical Softmax"></a>2.1 Hierarchical Softmax</h3><h3 id="2-2-Negative-Sampling"><a href="#2-2-Negative-Sampling" class="headerlink" title="2.2 Negative Sampling"></a>2.2 Negative Sampling</h3><h2 id="3-Pytorch动手实现"><a href="#3-Pytorch动手实现" class="headerlink" title="3.Pytorch动手实现"></a>3.Pytorch动手实现</h2><p>refer:<br><a href="http://zh.gluon.ai/chapter_natural-language-processing/word2vec.html" target="_blank" rel="noopener">动手学深度学习,word2vec</a><br><a href="https://arxiv.org/pdf/1411.2738.pdf" target="_blank" rel="noopener">word2vec Parameter Learning Explained</a><br><a href="http://mccormickml.com/2016/04/19/word2vec-tutorial-the-skip-gram-model/" target="_blank" rel="noopener">word2vec-tutorial</a></p>
+\frac{\partial \log\, P(w_c \mid \mathcal{W}_o)}{\partial \boldsymbol{v}_{o_i}} = \frac{1}{2m} \left(\boldsymbol{u}_c - \sum_{j \in \mathcal{V}} \frac{\exp(\boldsymbol{u}_j^\top \bar{\boldsymbol{v}}_o)\boldsymbol{u}_j}{ \sum_{i \in \mathcal{V}} \text{exp}(\boldsymbol{u}_i^\top \bar{\boldsymbol{v}}_o)} \right) = \frac{1}{2m}\left(\boldsymbol{u}_c - \sum_{j \in \mathcal{V}} P(w_j \mid \mathcal{W}_o) \boldsymbol{u}_j \right).</script><h2 id="2-加速计算"><a href="#2-加速计算" class="headerlink" title="2. 加速计算"></a>2. 加速计算</h2><h3 id="2-1-Hierarchical-Softmax"><a href="#2-1-Hierarchical-Softmax" class="headerlink" title="2.1 Hierarchical Softmax"></a>2.1 Hierarchical Softmax</h3><p>Hierarchical Softmax 层序softmax是一种近似的训练方法。该方法不用为了获得概率分布而评估神经网络中的 $W$ 个输出结点，而只需要评估约$log_2(W)$ 个结点。层次Softmax使用哈夫曼树结构来表示词典里的所有词， $V$ 个词都是二叉树的叶子结点，而这棵树一共有 $V−1$个非叶子结点。<br>对于每个叶子结点（词），总有一条从根结点出发到该结点的唯一路径。这个路径很重要，因为要靠它来估算这个词出现的概率。以下图为例白色结点为词典中的词，深色是非叶子结点。图中画出了从根结点到词 $w_2$ 的唯一路径，路径长度 $L(w_2)=4$，而 $n(w,j)$ 表示从根结点到词 $w_2$ 的路径上的的第 $j$ 个结点。<br><img src="https://snsunlee-github-blog.oss-cn-beijing.aliyuncs.com/Blog_Pic/%E5%B1%82%E5%BA%8Fsoftmax.png" alt></p>
+<h4 id="目标词概率表示"><a href="#目标词概率表示" class="headerlink" title="目标词概率表示"></a>目标词概率表示</h4><p>我们要计算的是目标词 $w$ 的概率，这个概率的具体含义，是指从根结点开始随机走，走到目标词 $w$ 的概率。因此在途中路过非叶子节点时，需要分别知道往左走和往右走的概率。例如到达非叶子节点 $n$ 的时候往左边走和往右边走的概率分别是：</p>
+<script type="math/tex; mode=display">
+\begin{array}{c}{p(n, \text {left})=\sigma\left(\theta_{n}^{T} \cdot h\right)} \\ {p(n, \text {right})=1-\sigma\left(\theta_{n}^{T} \cdot h\right)=\sigma\left(-\theta_{n}^{T} \cdot h\right)}\end{array}</script><p>若以目标词 $w_2$为例，</p>
+<script type="math/tex; mode=display">
+\begin{aligned} p\left(w_{2}\right) &=p\left(n\left(w_{2}, 1\right), l e f t\right) \cdot p\left(n\left(w_{2}, 2\right), \text {left }\right) \cdot p\left(n\left(w_{2}, 3\right), \text { right }\right) \\ &=\sigma\left(\theta_{n\left(w_{2}, 1\right)}^{T} \cdot h\right) \cdot \sigma\left(\theta_{n\left(w_{2}, 2\right)}^{T} \cdot h\right) \cdot \sigma\left(-\theta_{n\left(w_{2}, 3\right)}^{T} \cdot h\right) \end{aligned}</script><p>至此，可以得到 $w$ 的概率表示：</p>
+<script type="math/tex; mode=display">
+p(w)=\prod_{j=1}^{L(w)-1} \sigma\left(\operatorname{sign}(w, j) \cdot \theta_{n(w, j)}^{T} h\right)</script><ul>
+<li>其中 $θ_n(w,j)$是非叶子结点 $n(w,j)$的向量表示（即输出向量）；$h$ 是隐藏层的输出值，从输入词的向量中计算得来； $sign(x,j)$ 是判断下一个节点在左子树还是右子树：<script type="math/tex; mode=display">
+\operatorname{sign}(w, j)=\left\{\begin{array}{ll}{1} & {\text { 若 } n(w,j+1) \text { 是 } n(w,j) \text{的左孩子}} \\ {-1} & {\text { 若 } n(w,j+1) \text{ 是 } n(w,j) \text{的右孩子}}\end{array}\right.</script>此外，所有词概率和为1<script type="math/tex; mode=display">
+\sum_{i=1}^{n} p\left(w_{i}\right)=1</script></li>
+</ul>
+<h3 id="2-2-Negative-Sampling"><a href="#2-2-Negative-Sampling" class="headerlink" title="2.2 Negative Sampling"></a>2.2 Negative Sampling</h3><p>负采样修改了原来的目标函数。给定中心词 $w_c$ 的一个背景窗口，我们把背景词 $w_o$ 出现在该背景窗口看作一个事件，并将该事件的概率计算为</p>
+<script type="math/tex; mode=display">
+P(D=1\mid w_c, w_o) = \sigma(\boldsymbol{u}_o^\top \boldsymbol{v}_c),</script><p>我们先考虑最大化文本序列中所有该事件的联合概率来训练词向量。具体来说，给定一个长度为 T 的文本序列，设时间步 $t$ 的词为 $w^t$ 且背景窗口大小为 $m$ ，考虑最大化联合概率</p>
+<script type="math/tex; mode=display">
+\prod_{t=1}^{T} \prod_{-m \leq j \leq m,\ j \neq 0} P(D=1\mid w^{(t)}, w^{(t+j)})</script><p>然而，以上模型中包含的事件仅考虑了正类样本。这导致当所有词向量相等且值为无穷大时，以上的联合概率才被最大化为1。很明显，这样的词向量毫无意义。负采样通过采样并添加负类样本使目标函数更有意义。设背景词 $w_o$ 出现在中心词 $w_c$ 的一个背景窗口为事件 $P$ ，我们根据分布 $P(w)$ 采样 $K$ 个未出现在该背景窗口中的词，即噪声词。设噪声词 $w_k （ k=1,…,K ）$ 不出现在中心词 $w_c$ 的该背景窗口为事件 $N_k$ 。假设同时含有正类样本和负类样本的事件 $P,N_1,…,N_K$ 相互独立，负采样将以上需要最大化的仅考虑正类样本的联合概率改写为:</p>
+<script type="math/tex; mode=display">
+\prod_{t=1}^{T} \prod_{-m \leq j \leq m,\ j \neq 0} P(w^{(t+j)} \mid w^{(t)})</script><p>其中</p>
+<script type="math/tex; mode=display">
+P(w^{(t+j)} \mid w^{(t)}) =P(D=1\mid w^{(t)}, w^{(t+j)})\prod_{k=1,\ w_k \sim P(w)}^K P(D=0\mid w^{(t)}, w_k)</script><p>设文本序列中时间步 $t$ 的词 $w_t$ 在词典中的索引为 $i_t$ ，噪声词 $w_k$ 在词典中的索引为 $h_k$ 。有关以上条件概率的对数损失为</p>
+<script type="math/tex; mode=display">
+-\log P\left(w^{(t+j)} | w^{(t)}\right)=-\log P\left(D=1 | w^{(t)}, w^{(t+j)}\right)-\sum_{k=1, w_{k} \sim P(w)}^{K} \log P\left(D=0 | w^{(t)}, w_{k}\right)\\ =-\log \sigma\left(\boldsymbol{u}_{i_{t+j}}^{\top} \boldsymbol{v}_{i_{t}}\right)-\sum_{k=1, w_{k} \sim P(w)}^{K} \log \left(1-\sigma\left(\boldsymbol{u}_{h_{k}}^{\top} \boldsymbol{v}_{i_{t}}\right)\right) \\= -\log \sigma\left(\boldsymbol{u}_{i_{t+j}}^{\top} \boldsymbol{v}_{i_{t}}\right)-\sum_{k=1, w_{k} \sim P(w)}^{K} \log \sigma\left(-\boldsymbol{u}_{h_{k}}^{\top} \boldsymbol{v}_{i_{t}}\right)</script><h2 id="3-Pytorch动手实现"><a href="#3-Pytorch动手实现" class="headerlink" title="3.Pytorch动手实现"></a>3.Pytorch动手实现</h2><p>refer:<br><a href="http://zh.gluon.ai/chapter_natural-language-processing/word2vec.html" target="_blank" rel="noopener">动手学深度学习,word2vec</a><br><a href="https://arxiv.org/pdf/1411.2738.pdf" target="_blank" rel="noopener">word2vec Parameter Learning Explained</a><br><a href="http://mccormickml.com/2016/04/19/word2vec-tutorial-the-skip-gram-model/" target="_blank" rel="noopener">word2vec-tutorial</a></p>
 
       
     </div>
@@ -652,7 +675,7 @@ J(\theta) = -\sum_{t=1}^T  \text{log}\, P(w^{(t)} \mid  w^{(t-m)}, \ldots,  w^{(
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#0-one-hot以及word2vec"><span class="nav-number">1.</span> <span class="nav-text">0. one-hot以及word2vec</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-Skip-Gram和CBOW"><span class="nav-number">2.</span> <span class="nav-text">1. Skip-Gram和CBOW</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-Skip-Gram-跳字模型"><span class="nav-number">2.1.</span> <span class="nav-text">1.1 Skip-Gram(跳字模型)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-1-1-Skip-Gram的梯度求解："><span class="nav-number">2.1.1.</span> <span class="nav-text">1.1.1 Skip-Gram的梯度求解：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-CBOW-连续词袋模型"><span class="nav-number">2.2.</span> <span class="nav-text">1.2 CBOW(连续词袋模型)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-加速计算"><span class="nav-number">3.</span> <span class="nav-text">2. 加速计算</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-Hierarchical-Softmax"><span class="nav-number">3.1.</span> <span class="nav-text">2.1 Hierarchical Softmax</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-Negative-Sampling"><span class="nav-number">3.2.</span> <span class="nav-text">2.2 Negative Sampling</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-Pytorch动手实现"><span class="nav-number">4.</span> <span class="nav-text">3.Pytorch动手实现</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#0-one-hot以及word2vec"><span class="nav-number">1.</span> <span class="nav-text">0. one-hot以及word2vec</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-Skip-Gram和CBOW"><span class="nav-number">2.</span> <span class="nav-text">1. Skip-Gram和CBOW</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-Skip-Gram-跳字模型"><span class="nav-number">2.1.</span> <span class="nav-text">1.1 Skip-Gram(跳字模型)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-1-1-Skip-Gram的梯度求解："><span class="nav-number">2.1.1.</span> <span class="nav-text">1.1.1 Skip-Gram的梯度求解：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-CBOW-连续词袋模型"><span class="nav-number">2.2.</span> <span class="nav-text">1.2 CBOW(连续词袋模型)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-加速计算"><span class="nav-number">3.</span> <span class="nav-text">2. 加速计算</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-Hierarchical-Softmax"><span class="nav-number">3.1.</span> <span class="nav-text">2.1 Hierarchical Softmax</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#目标词概率表示"><span class="nav-number">3.1.1.</span> <span class="nav-text">目标词概率表示</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-Negative-Sampling"><span class="nav-number">3.2.</span> <span class="nav-text">2.2 Negative Sampling</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-Pytorch动手实现"><span class="nav-number">4.</span> <span class="nav-text">3.Pytorch动手实现</span></a></li></ol></div>
             
 
           </div>
