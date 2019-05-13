@@ -16,7 +16,7 @@
 
 <html class="theme-next pisces use-motion" lang>
 <head><meta name="generator" content="Hexo 3.8.0">
-  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+  <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
@@ -161,7 +161,7 @@
   .use-motion .logo-line-before i { left: initial; }
   .use-motion .logo-line-after i { right: initial; }
   </style>
-</noscript><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</noscript>
 
 </head>
 
@@ -172,7 +172,7 @@
     
   
 
-  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -460,11 +460,13 @@
 <h3 id="行内-inline-和-行间-display-模式"><a href="#行内-inline-和-行间-display-模式" class="headerlink" title="行内(inline) 和 行间(display)模式"></a>行内(inline) 和 行间(display)模式</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">这是一个行内公式 <span class="variable">$f</span>(x)=ax+b$ 你看着喜欢</span><br></pre></td></tr></table></figure>
 <p>这是一个行内公式 $f(x)=ax+b$ 你看着喜欢</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">独占一行显示一个公式</span><br><span class="line">$$</span><br><span class="line">f(x)=ax+b</span><br><span class="line">$$</span><br></pre></td></tr></table></figure>
-<p>独占一行显示一个公式<br>$$<br>f(x)=ax+b<br>$$</p>
-<h3 id="控制序列"><a href="#控制序列" class="headerlink" title="控制序列"></a>控制序列</h3><p>凡是键盘不能够直接表示的符号或者起着特定作用的皆有命令，叫做控制序列（control sequence）。比如求和符号 $\sum$ 对应的命令为 <code>\sum</code></p>
+<p>独占一行显示一个公式</p>
+<script type="math/tex; mode=display">
+f(x)=ax+b</script><h3 id="控制序列"><a href="#控制序列" class="headerlink" title="控制序列"></a>控制序列</h3><p>凡是键盘不能够直接表示的符号或者起着特定作用的皆有命令，叫做控制序列（control sequence）。比如求和符号 $\sum$ 对应的命令为 <code>\sum</code></p>
 <h3 id="上下标"><a href="#上下标" class="headerlink" title="上下标"></a>上下标</h3><p><code>_</code>表示下标，<code>^</code>表示上标。它默认只作用于之后的一个字符，如果想对连续的几个字符起作用，请将这些字符用花括号<code>{}</code>括起来， 也就是下面分组的概念。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$f_1=ax^2+bx+c$</span><br></pre></td></tr></table></figure></p>
 <p>$f_1=ax^2+bx+c$</p>
 <h3 id="分组"><a href="#分组" class="headerlink" title="分组"></a>分组</h3><p>用{…}将内容包含起来视作整体</p>
+<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -474,70 +476,90 @@
 </thead>
 <tbody>
 <tr>
-<td style="text-align:center"><code>$ x_i $</code></td>
+<td style="text-align:center"><script type="math/tex">x_i</script></td>
 <td style="text-align:center">$ x_i $   </td>
 </tr>
 <tr>
-<td style="text-align:center"><code>$ x^2 $</code></td>
+<td style="text-align:center"><script type="math/tex">x^2</script></td>
 <td style="text-align:center">$ x^2 $   </td>
 </tr>
 <tr>
-<td style="text-align:center"><code>$ x^{y^z} $</code></td>
+<td style="text-align:center"><script type="math/tex">x^{y^z}</script></td>
 <td style="text-align:center">$ x^{y^z} $ </td>
 </tr>
 <tr>
-<td style="text-align:center"><code>$ \int_a^bf(x) $</code></td>
+<td style="text-align:center"><script type="math/tex">\int_a^bf(x)</script></td>
 <td style="text-align:center">$ \int_a^bf(x) $ </td>
 </tr>
 <tr>
-<td style="text-align:center"><code>$ \frac {x+y}{z} $</code></td>
+<td style="text-align:center"><script type="math/tex">\frac {x+y}{z}</script></td>
 <td style="text-align:center">$ \frac {x+y}{z} $ </td>
 </tr>
 <tr>
-<td style="text-align:center"><code>$ \sum_{k=1}^{n}\sqrt[3]{k} $</code></td>
+<td style="text-align:center"><script type="math/tex">\sum_{k=1}^{n}\sqrt[3]{k}</script></td>
 <td style="text-align:center">$ \sum_{k=1}^{n}\sqrt[3]{k} $ </td>
 </tr>
 <tr>
-<td style="text-align:center"><code>$\alpha$</code></td>
+<td style="text-align:center"><script type="math/tex">\alpha</script></td>
 <td style="text-align:center">$\alpha$</td>
 </tr>
 <tr>
-<td style="text-align:center"><code>$\beta$</code></td>
+<td style="text-align:center"><script type="math/tex">\beta</script></td>
 <td style="text-align:center">$\beta$</td>
 </tr>
 <tr>
-<td style="text-align:center"><code>$\gamma$</code></td>
+<td style="text-align:center"><script type="math/tex">\gamma</script></td>
 <td style="text-align:center">$\gamma$</td>
 </tr>
 <tr>
-<td style="text-align:center"><code>$\delta  \Delta$</code></td>
+<td style="text-align:center"><script type="math/tex">\delta  \Delta</script></td>
 <td style="text-align:center">$\delta  \Delta$</td>
 </tr>
 <tr>
-<td style="text-align:center"><code>$\theta  \Theta$</code></td>
+<td style="text-align:center"><script type="math/tex">\theta  \Theta</script></td>
 <td style="text-align:center">$\theta  \Theta$</td>
 </tr>
 <tr>
-<td style="text-align:center"><code>$\vec{a}\cdot\vec{b}$</code></td>
+<td style="text-align:center"><script type="math/tex">\vec{a}\cdot\vec{b}</script></td>
 <td style="text-align:center">$\vec{a}\cdot\vec{b}$</td>
 </tr>
 <tr>
-<td style="text-align:center"><code>$\approx$</code></td>
+<td style="text-align:center"><script type="math/tex">\approx</script></td>
 <td style="text-align:center">$\approx$</td>
 </tr>
 <tr>
-<td style="text-align:center"><code>$\neq$</code></td>
+<td style="text-align:center"><script type="math/tex">\neq</script></td>
 <td style="text-align:center">$\neq$</td>
 </tr>
 <tr>
-<td style="text-align:center"><code>$f(x)= \begin{cases} x, x&gt;0 \\\ -x,x&lt;0 \end{cases}$</code></td>
-<td style="text-align:center">$f(x)= \begin{cases} x, x&gt;0 \\ -x,x&lt;0 \end{cases}$</td>
+<td style="text-align:center"><script type="math/tex">f(x)= \begin{cases} x, x>0 \\\ -x,x<0 \end{cases}</script></td>
+<td style="text-align:center">$f(x)= \begin{cases} x, x&gt;0 \\\ -x,x&lt;0 \end{cases}$</td>
 </tr>
 </tbody>
 </table>
+</div>
 <h3 id="矩阵"><a href="#矩阵" class="headerlink" title="矩阵"></a>矩阵</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">$$\left[</span><br><span class="line">\begin&#123;matrix&#125;</span><br><span class="line">V_A \\\\</span><br><span class="line">V_B \\\\</span><br><span class="line">V_C \\\\</span><br><span class="line">\end&#123;matrix&#125;</span><br><span class="line">\right] =</span><br><span class="line">\left[</span><br><span class="line">\begin&#123;matrix&#125;</span><br><span class="line">1 &amp; 0 &amp; L \\\\</span><br><span class="line">-cosψ &amp; sinψ &amp; L \\\\</span><br><span class="line">-cosψ &amp; -sinψ &amp; L</span><br><span class="line">\end&#123;matrix&#125;</span><br><span class="line">\right]</span><br><span class="line">\left[</span><br><span class="line">\begin&#123;matrix&#125;</span><br><span class="line">V_x \\\\</span><br><span class="line">V_y \\\\</span><br><span class="line">W \\\\</span><br><span class="line">\end&#123;matrix&#125;</span><br><span class="line">\right] $$</span><br></pre></td></tr></table></figure>
-<p>$$\left[<br>\begin{matrix}<br>V_A \\<br>V_B \\<br>V_C \\<br>\end{matrix}<br>\right] =<br>\left[<br>\begin{matrix}<br>1 &amp; 0 &amp; L \\<br>-cosψ &amp; sinψ &amp; L \\<br>-cosψ &amp; -sinψ &amp; L<br>\end{matrix}<br>\right]<br>\left[<br>\begin{matrix}<br>V_x \\<br>V_y \\<br>W \\<br>\end{matrix}<br>\right] $$</p>
-
+<script type="math/tex; mode=display">\left[
+\begin{matrix}
+V_A \\\\
+V_B \\\\
+V_C \\\\
+\end{matrix}
+\right] =
+\left[
+\begin{matrix}
+1 & 0 & L \\\\
+-cosψ & sinψ & L \\\\
+-cosψ & -sinψ & L
+\end{matrix}
+\right]
+\left[
+\begin{matrix}
+V_x \\\\
+V_y \\\\
+W \\\\
+\end{matrix}
+\right]</script>
       
     </div>
 
@@ -922,24 +944,7 @@
     }
   });
 </script>
-<script src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config("");
-</script>
-
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Queue(function() {
-    var all = MathJax.Hub.getAllJax(), i;
-    for(i=0; i < all.length; i += 1) {
-      all[i].SourceElement().parentNode.className += ' has-jax';
-    }
-  });
-</script>
-
-<script type="text/javascript" src>
-</script>
-<!-- End: Injected MathJax -->
-<!-- hexo-inject:end -->
+<script src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
     
   
