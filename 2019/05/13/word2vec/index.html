@@ -96,16 +96,19 @@
 
 
 
-  <meta name="description" content="You shall know a word by the company it keeps.">
-<meta property="og:type" content="website">
-<meta property="og:title" content="My Bolg">
-<meta property="og:url" content="http://yoursite.com/index.html">
+  <meta name="description" content="最近在看word2vec的内容，本文主要参考了Xin Rong的 word2vec Parameter Learning Explained 强烈推荐 0. one-hot以及word2vec两种算法：  Skip-Grams (SG)：通过中心词预测上下文 Continuous Bag of Words (CBOW)：通过上下文预测中心单词  加速计算的近似训练方法：  Hierarchical">
+<meta property="og:type" content="article">
+<meta property="og:title" content="word2vec">
+<meta property="og:url" content="http://yoursite.com/2019/05/13/word2vec/index.html">
 <meta property="og:site_name" content="My Bolg">
-<meta property="og:description" content="You shall know a word by the company it keeps.">
+<meta property="og:description" content="最近在看word2vec的内容，本文主要参考了Xin Rong的 word2vec Parameter Learning Explained 强烈推荐 0. one-hot以及word2vec两种算法：  Skip-Grams (SG)：通过中心词预测上下文 Continuous Bag of Words (CBOW)：通过上下文预测中心单词  加速计算的近似训练方法：  Hierarchical">
 <meta property="og:locale" content="default">
+<meta property="og:image" content="https://snsunlee-github-blog.oss-cn-beijing.aliyuncs.com/Blog_Pic/02-skip-gram-detail.png?Expires=1557739959&OSSAccessKeyId=TMP.AgGdorA6EI0Cyd0Y0ku-v02NJXcQGQoh_ZWNJJ1SeTfOa3xd26Vs86omiqgMADAtAhQtobCq52bqrTaz9iEMXVxhWd5P-AIVAOizb2jLf1PmQYkkesYBMZ7GEoBE&Signature=jhAUbm7IRPAKjR63vzS4iK9natE%3D">
+<meta property="og:updated_time" content="2019-05-13T08:59:03.596Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="My Bolg">
-<meta name="twitter:description" content="You shall know a word by the company it keeps.">
+<meta name="twitter:title" content="word2vec">
+<meta name="twitter:description" content="最近在看word2vec的内容，本文主要参考了Xin Rong的 word2vec Parameter Learning Explained 强烈推荐 0. one-hot以及word2vec两种算法：  Skip-Grams (SG)：通过中心词预测上下文 Continuous Bag of Words (CBOW)：通过上下文预测中心单词  加速计算的近似训练方法：  Hierarchical">
+<meta name="twitter:image" content="https://snsunlee-github-blog.oss-cn-beijing.aliyuncs.com/Blog_Pic/02-skip-gram-detail.png?Expires=1557739959&OSSAccessKeyId=TMP.AgGdorA6EI0Cyd0Y0ku-v02NJXcQGQoh_ZWNJJ1SeTfOa3xd26Vs86omiqgMADAtAhQtobCq52bqrTaz9iEMXVxhWd5P-AIVAOizb2jLf1PmQYkkesYBMZ7GEoBE&Signature=jhAUbm7IRPAKjR63vzS4iK9natE%3D">
 
 
 
@@ -113,7 +116,7 @@
 
   
   
-  <link rel="canonical" href="http://yoursite.com/">
+  <link rel="canonical" href="http://yoursite.com/2019/05/13/word2vec/">
 
 
 
@@ -123,7 +126,7 @@
   };
 </script>
 
-  <title>My Bolg</title>
+  <title>word2vec | My Bolg</title>
   
 
 
@@ -171,8 +174,7 @@
     
   
 
-  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left 
-  page-home">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -210,7 +212,7 @@
         
         
           
-          <li class="menu-item menu-item-home menu-item-active">
+          <li class="menu-item menu-item-home">
 
     
     
@@ -306,9 +308,9 @@
           
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   
 
@@ -340,10 +342,8 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/05/13/word2vec/" class="post-title-link" itemprop="url">word2vec</a>
+          <h1 class="post-title" itemprop="name headline">word2vec
+
               
             
           </h1>
@@ -425,9 +425,7 @@
       
 
       
-        
-          
-            <p>最近在看word2vec的内容，本文主要参考了Xin Rong的 <a href="https://arxiv.org/pdf/1411.2738.pdf" target="_blank" rel="noopener">word2vec Parameter Learning Explained</a> 强烈推荐</p>
+        <p>最近在看word2vec的内容，本文主要参考了Xin Rong的 <a href="https://arxiv.org/pdf/1411.2738.pdf" target="_blank" rel="noopener">word2vec Parameter Learning Explained</a> 强烈推荐</p>
 <h2 id="0-one-hot以及word2vec"><a href="#0-one-hot以及word2vec" class="headerlink" title="0. one-hot以及word2vec"></a>0. one-hot以及word2vec</h2><p>两种算法：</p>
 <ul>
 <li>Skip-Grams (SG)：通过中心词预测上下文</li>
@@ -456,8 +454,6 @@ P(\textrm{</code>the”}\mid\textrm{<code>loves&quot;})\cdot P(\textrm{</code>ma
 <p>最后得到任一背景词向量 $v_{oi}(i=1,2,…,2m)$ 的梯度<br>$$<br>\frac{\partial \log\, P(w_c \mid \mathcal{W}<em>o)}{\partial \boldsymbol{v}</em>{o_i}} = \frac{1}{2m} \left(\boldsymbol{u}<em>c - \sum</em>{j \in \mathcal{V}} \frac{\exp(\boldsymbol{u}_j^\top \bar{\boldsymbol{v}}_o)\boldsymbol{u}<em>j}{ \sum</em>{i \in \mathcal{V}} \text{exp}(\boldsymbol{u}_i^\top \bar{\boldsymbol{v}}_o)} \right) = \frac{1}{2m}\left(\boldsymbol{u}<em>c - \sum</em>{j \in \mathcal{V}} P(w_j \mid \mathcal{W}_o) \boldsymbol{u}_j \right).<br>$$</p>
 <h2 id="2-加速计算"><a href="#2-加速计算" class="headerlink" title="2. 加速计算"></a>2. 加速计算</h2><h3 id="2-1-Hierarchical-Softmax"><a href="#2-1-Hierarchical-Softmax" class="headerlink" title="2.1 Hierarchical Softmax"></a>2.1 Hierarchical Softmax</h3><h3 id="2-2-Negative-Sampling"><a href="#2-2-Negative-Sampling" class="headerlink" title="2.2 Negative Sampling"></a>2.2 Negative Sampling</h3><h2 id="3-Pytorch动手实现"><a href="#3-Pytorch动手实现" class="headerlink" title="3.Pytorch动手实现"></a>3.Pytorch动手实现</h2><p>refer:<br><a href="http://zh.gluon.ai/chapter_natural-language-processing/word2vec.html" target="_blank" rel="noopener">动手学深度学习,word2vec</a><br><a href="https://arxiv.org/pdf/1411.2738.pdf" target="_blank" rel="noopener">word2vec Parameter Learning Explained</a><br><a href="http://mccormickml.com/2016/04/19/word2vec-tutorial-the-skip-gram-model/" target="_blank" rel="noopener">word2vec-tutorial</a></p>
 
-          
-        
       
     </div>
 
@@ -480,174 +476,28 @@ P(\textrm{</code>the”}\mid\textrm{<code>loves&quot;})\cdot P(\textrm{</code>ma
       
 
       
-
-      
-
       
       
-        <div class="post-eof"></div>
+
       
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/10/LeetCode题解/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="snsun lee">
-      <meta itemprop="description" content="You shall know a word by the company it keeps.">
-      <meta itemprop="image" content="/uploads/23132472.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="My Bolg">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/05/10/LeetCode题解/" class="post-title-link" itemprop="url">LeetCode题解</a>
-              
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
             
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
+              <a href="/2019/05/10/LeetCode题解/" rel="next" title="LeetCode题解">
+                <i class="fa fa-chevron-left"></i> LeetCode题解
+              </a>
             
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
             
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2019-05-10 12:48:45 / 修改时间：13:14:43" itemprop="dateCreated datePublished" datetime="2019-05-10T12:48:45+08:00">2019-05-10</time>
-            
-
-            
-              
-
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
+          </div>
         </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
       
 
       
-        
-          
-            <p>最近新开了一个<a href="http://www.google.com/" target="_blank" rel="noopener">repo:snsunlee/LeetCode</a>，来记录自己的LeetCode刷题之旅，目标是一天差不多四道题目（2easy 2medium），medium可能会着重总结下，easy的意义在于快速AC，当然好玩的题目也会总结成Markdown.</p>
-<p>原始的Python-solution 放在了<a href="https://github.com/snsunlee/LeetCode/tree/master/code-File" target="_blank" rel="noopener">code-File</a><br>整理后的放在了<a href="https://github.com/snsunlee/LeetCode/tree/master/markdown-File" target="_blank" rel="noopener">Markdown-File</a></p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
       
     </footer>
   </div>
@@ -657,288 +507,15 @@ P(\textrm{</code>the”}\mid\textrm{<code>loves&quot;})\cdot P(\textrm{</code>ma
   </article>
 
 
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/28/hello-world/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="snsun lee">
-      <meta itemprop="description" content="You shall know a word by the company it keeps.">
-      <meta itemprop="image" content="/uploads/23132472.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="My Bolg">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/04/28/hello-world/" class="post-title-link" itemprop="url">Hello World</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2019-04-28 20:18:51" itemprop="dateCreated datePublished" datetime="2019-04-28T20:18:51+08:00">2019-04-28</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2019-05-10 12:47:59" itemprop="dateModified" datetime="2019-05-10T12:47:59+08:00">2019-05-10</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Hexo/" itemprop="url" rel="index"><span itemprop="name">Hexo</span></a></span>
-
-                
-                
-                  ，
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Hexo/LaTex/" itemprop="url" rel="index"><span itemprop="name">LaTex</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <!--将该代码放入博客模板的head中即可-->
-<p>The Hello World of the Hexo and LaTex</p>
-<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Hexo-Quick-Start"><a href="#Hexo-Quick-Start" class="headerlink" title="Hexo Quick Start"></a>Hexo Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>or<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo g</span><br></pre></td></tr></table></figure></p>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>or<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo d</span><br></pre></td></tr></table></figure></p>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
-<h3 id="Show-More"><a href="#Show-More" class="headerlink" title="Show More"></a>Show More</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;!--more--&gt;</span><br></pre></td></tr></table></figure>
-<h2 id="LaTex-Quick-Start"><a href="#LaTex-Quick-Start" class="headerlink" title="LaTex Quick Start"></a>LaTex Quick Start</h2><p>开启$LaTex$写作之前，需要将每篇<code>.md</code>文件的头引入<code>mathjax: true</code> 以开启<code>mathjax</code>插件</p>
-<h3 id="行内-inline-和-行间-display-模式"><a href="#行内-inline-和-行间-display-模式" class="headerlink" title="行内(inline) 和 行间(display)模式"></a>行内(inline) 和 行间(display)模式</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">这是一个行内公式 <span class="variable">$f</span>(x)=ax+b$ 你看着喜欢</span><br></pre></td></tr></table></figure>
-<p>这是一个行内公式 $f(x)=ax+b$ 你看着喜欢</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">独占一行显示一个公式</span><br><span class="line">$$</span><br><span class="line">f(x)=ax+b</span><br><span class="line">$$</span><br></pre></td></tr></table></figure>
-<p>独占一行显示一个公式<br>$$<br>f(x)=ax+b<br>$$</p>
-<h3 id="控制序列"><a href="#控制序列" class="headerlink" title="控制序列"></a>控制序列</h3><p>凡是键盘不能够直接表示的符号或者起着特定作用的皆有命令，叫做控制序列（control sequence）。比如求和符号 $\sum$ 对应的命令为 <code>\sum</code></p>
-<h3 id="上下标"><a href="#上下标" class="headerlink" title="上下标"></a>上下标</h3><p><code>_</code>表示下标，<code>^</code>表示上标。它默认只作用于之后的一个字符，如果想对连续的几个字符起作用，请将这些字符用花括号<code>{}</code>括起来， 也就是下面分组的概念。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$f_1=ax^2+bx+c$</span><br></pre></td></tr></table></figure></p>
-<p>$f_1=ax^2+bx+c$</p>
-<h3 id="分组"><a href="#分组" class="headerlink" title="分组"></a>分组</h3><p>用{…}将内容包含起来视作整体</p>
-<table>
-<thead>
-<tr>
-<th style="text-align:center">Latex语法</th>
-<th style="text-align:center">预览效果</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center"><code>$ x_i $</code></td>
-<td style="text-align:center">$ x_i $   </td>
-</tr>
-<tr>
-<td style="text-align:center"><code>$ x^2 $</code></td>
-<td style="text-align:center">$ x^2 $   </td>
-</tr>
-<tr>
-<td style="text-align:center"><code>$ x^{y^z} $</code></td>
-<td style="text-align:center">$ x^{y^z} $ </td>
-</tr>
-<tr>
-<td style="text-align:center"><code>$ \int_a^bf(x) $</code></td>
-<td style="text-align:center">$ \int_a^bf(x) $ </td>
-</tr>
-<tr>
-<td style="text-align:center"><code>$ \frac {x+y}{z} $</code></td>
-<td style="text-align:center">$ \frac {x+y}{z} $ </td>
-</tr>
-<tr>
-<td style="text-align:center"><code>$ \sum_{k=1}^{n}\sqrt[3]{k} $</code></td>
-<td style="text-align:center">$ \sum_{k=1}^{n}\sqrt[3]{k} $ </td>
-</tr>
-<tr>
-<td style="text-align:center"><code>$\alpha$</code></td>
-<td style="text-align:center">$\alpha$</td>
-</tr>
-<tr>
-<td style="text-align:center"><code>$\beta$</code></td>
-<td style="text-align:center">$\beta$</td>
-</tr>
-<tr>
-<td style="text-align:center"><code>$\gamma$</code></td>
-<td style="text-align:center">$\gamma$</td>
-</tr>
-<tr>
-<td style="text-align:center"><code>$\delta  \Delta$</code></td>
-<td style="text-align:center">$\delta  \Delta$</td>
-</tr>
-<tr>
-<td style="text-align:center"><code>$\theta  \Theta$</code></td>
-<td style="text-align:center">$\theta  \Theta$</td>
-</tr>
-<tr>
-<td style="text-align:center"><code>$\vec{a}\cdot\vec{b}$</code></td>
-<td style="text-align:center">$\vec{a}\cdot\vec{b}$</td>
-</tr>
-<tr>
-<td style="text-align:center"><code>$\approx$</code></td>
-<td style="text-align:center">$\approx$</td>
-</tr>
-<tr>
-<td style="text-align:center"><code>$\neq$</code></td>
-<td style="text-align:center">$\neq$</td>
-</tr>
-<tr>
-<td style="text-align:center"><code>$f(x)= \begin{cases} x, x&gt;0 \\\ -x,x&lt;0 \end{cases}$</code></td>
-<td style="text-align:center">$f(x)= \begin{cases} x, x&gt;0 \\ -x,x&lt;0 \end{cases}$</td>
-</tr>
-</tbody>
-</table>
-<h3 id="矩阵"><a href="#矩阵" class="headerlink" title="矩阵"></a>矩阵</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">$$\left[</span><br><span class="line">\begin&#123;matrix&#125;</span><br><span class="line">V_A \\\\</span><br><span class="line">V_B \\\\</span><br><span class="line">V_C \\\\</span><br><span class="line">\end&#123;matrix&#125;</span><br><span class="line">\right] =</span><br><span class="line">\left[</span><br><span class="line">\begin&#123;matrix&#125;</span><br><span class="line">1 &amp; 0 &amp; L \\\\</span><br><span class="line">-cosψ &amp; sinψ &amp; L \\\\</span><br><span class="line">-cosψ &amp; -sinψ &amp; L</span><br><span class="line">\end&#123;matrix&#125;</span><br><span class="line">\right]</span><br><span class="line">\left[</span><br><span class="line">\begin&#123;matrix&#125;</span><br><span class="line">V_x \\\\</span><br><span class="line">V_y \\\\</span><br><span class="line">W \\\\</span><br><span class="line">\end&#123;matrix&#125;</span><br><span class="line">\right] $$</span><br></pre></td></tr></table></figure>
-<p>$$\left[<br>\begin{matrix}<br>V_A \\<br>V_B \\<br>V_C \\<br>\end{matrix}<br>\right] =<br>\left[<br>\begin{matrix}<br>1 &amp; 0 &amp; L \\<br>-cosψ &amp; sinψ &amp; L \\<br>-cosψ &amp; -sinψ &amp; L<br>\end{matrix}<br>\right]<br>\left[<br>\begin{matrix}<br>V_x \\<br>V_y \\<br>W \\<br>\end{matrix}<br>\right] $$</p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
   </div>
-  
-  
-  
-  </article>
-
-
-    
-  </section>
-
-  
 
 
           </div>
           
+
+  
+
+
 
         </div>
         
@@ -958,8 +535,17 @@ P(\textrm{</code>the”}\mid\textrm{<code>loves&quot;})\cdot P(\textrm{</code>ma
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <div class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <div class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -1030,6 +616,23 @@ P(\textrm{</code>the”}\mid\textrm{<code>loves&quot;})\cdot P(\textrm{</code>ma
         </div>
       </div>
 
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#0-one-hot以及word2vec"><span class="nav-number">1.</span> <span class="nav-text">0. one-hot以及word2vec</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-Skip-Gram和CBOW"><span class="nav-number">2.</span> <span class="nav-text">1. Skip-Gram和CBOW</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-Skip-Gram-跳字模型"><span class="nav-number">2.1.</span> <span class="nav-text">1.1 Skip-Gram(跳字模型)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-1-1-Skip-Gram的梯度求解："><span class="nav-number">2.1.1.</span> <span class="nav-text">1.1.1 Skip-Gram的梯度求解：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-CBOW-连续词袋模型"><span class="nav-number">2.2.</span> <span class="nav-text">1.2 CBOW(连续词袋模型)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-加速计算"><span class="nav-number">3.</span> <span class="nav-text">2. 加速计算</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-Hierarchical-Softmax"><span class="nav-number">3.1.</span> <span class="nav-text">2.1 Hierarchical Softmax</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-Negative-Sampling"><span class="nav-number">3.2.</span> <span class="nav-text">2.2 Negative Sampling</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-Pytorch动手实现"><span class="nav-number">4.</span> <span class="nav-text">3.Pytorch动手实现</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
       
 
       
@@ -1160,6 +763,10 @@ P(\textrm{</code>the”}\mid\textrm{<code>loves&quot;})\cdot P(\textrm{</code>ma
 
 
   
+  <script src="/js/scrollspy.js?v=7.1.0"></script>
+<script src="/js/post-details.js?v=7.1.0"></script>
+
+
 
   
 
@@ -1176,6 +783,8 @@ P(\textrm{</code>the”}\mid\textrm{<code>loves&quot;})\cdot P(\textrm{</code>ma
   
 
 
+  
+
 
   
 
@@ -1190,16 +799,6 @@ P(\textrm{</code>the”}\mid\textrm{<code>loves&quot;})\cdot P(\textrm{</code>ma
   
 
   
-  
-    
-      
-        
-      
-    
-      
-    
-      
-    
   
 
   
